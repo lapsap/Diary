@@ -1,0 +1,7 @@
+
+
+Connection settings: 1) need to be Localhost(127.0.0.1)
+		     2) Connection pass must be "root" and pass should be nothing "" .
+
+These settings are setted inside the jar file, and need to be rebuilt if the settings are changed.
+
