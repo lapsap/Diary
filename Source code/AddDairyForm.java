@@ -1,40 +1,44 @@
-package Dairy_Revision2;
+package Diary;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddDairyForm  implements ActionListener{
-            JTextPane textPane = new JTextPane();
-            JTextField titleTextField = new JTextField();
-            String Date = new SimpleDateFormat("d-MMM-yyyy  hh:mm aa").format(Calendar.getInstance().getTime()); //get time   
-            JTextField dateTextField = new JTextField(Date);
+    
+String Date = new SimpleDateFormat("d-MMM-yyyy  hh:mm aa").format(Calendar.getInstance().getTime()); //get time              
+JTextPane textPane = new JTextPane();         //initialize  JTextPane
+JTextField titleTextField = new JTextField();
+JTextField dateTextField = new JTextField(Date);     
             
-    public  void actionPerformed(ActionEvent e){
-if(( (textPane.getText().equals("")) || (titleTextField.getText().equals("")) ) == false)
+public  void actionPerformed(ActionEvent e)
 {
+    if(( (textPane.getText().equals("")) || (titleTextField.getText().equals("")) ) == false)  // check if any field is left empty
+        {
         
             try{
                  Connection conn = ConnectDB.connect(); // connection to ConnectDB class          
-                conn.createStatement().execute("INSERT INTO `dairy` (event,date,title) VALUES ('"+textPane.getText()+"' , '"+dateTextField.getText()+"' , '"+titleTextField.getText()+"')"); //Insert data to table 'testone'
+                conn.createStatement().execute("INSERT INTO `diary` (event,date,title) VALUES ('"+textPane.getText()+"' , '"+dateTextField.getText()+"' , '"+titleTextField.getText()+"')"); //Insert data to table 'testone'
                  JOptionPane.showMessageDialog(null,"Saved"); // message box telling 'saved'
                 textPane.setText(""); // reset text field after data saved
                 titleTextField.setText("");
+                conn.close();  // close mysql connection
                 }
-                    catch (Exception err){
+             catch (Exception err){
                                     JOptionPane.showMessageDialog(null,err); //show error
-                                           }
-}else
-{
-    JOptionPane.showConfirmDialog(null, "You Didnt Type Anything !");
+                                  }
+        }
+        else
+            {
+                JOptionPane.showConfirmDialog(null, "You Didnt Type Anything !");
+            }
 }
-    }
-     public JPanel createContentPane (){ // create content ( forms)
-        
-       JPanel totalGUI = new JPanel();
+public JPanel createContentPane ()  // create content ( forms)
+{    
+       JPanel totalGUI = new JPanel();  // panel to fit all my buttons,forms inside
          totalGUI.setLayout(null);
 
         // Creation of a Panel to contain the JLabels
@@ -78,11 +82,11 @@ if(( (textPane.getText().equals("")) || (titleTextField.getText().equals("")) ) 
         textPanel.add(textPane);
         
         return totalGUI;
-    }
+}
     
     void makeGUI (){
           
-    ReadDairyEventForm demo = new ReadDairyEventForm();         
+    ReadDairyForm demo = new ReadDairyForm();         
        JFrame frame = new JFrame();
        frame.setResizable(false);
       frame.setLocation(40,20);

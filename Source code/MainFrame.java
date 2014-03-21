@@ -1,12 +1,13 @@
-package Dairy_Revision2;
-import java.awt.event.ActionEvent;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
+package Diary;
+import java.awt.event.*;
+import java.io.*;
+import java.sql.*;
 import javax.swing.*;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.text.*;
+import java.util.*;
+import java.util.logging.*;
+
+
 public class MainFrame implements ActionListener{
   public  void actionPerformed(ActionEvent e) { 
          String buttonName = ((JComponent) e.getSource()).getName();
@@ -17,10 +18,22 @@ public class MainFrame implements ActionListener{
                     addform.makeGUI();
                     break;
                 case "read":
-                         ReadDairyEventForm readform = new ReadDairyEventForm();
+                         ReadDairyForm readform = new ReadDairyForm();
                         readform.run();
                     break;
-                    
+                case "inxml":
+                      XmlToSql sqlform = new XmlToSql();
+                      sqlform.importData();
+                    break;
+                case "outxml":
+         try {
+             SqlToXml.dumpData();
+         } catch (SQLException ex) {
+             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
+             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+         }
+                 break;
      }
     }
     public JPanel createContentPane(){
@@ -30,7 +43,7 @@ public class MainFrame implements ActionListener{
         
         String Date = new SimpleDateFormat("d-MMM-yyyy  hh:mm aa").format(Calendar.getInstance().getTime()); //get time
         JLabel dateLabel = new JLabel(Date);
-        dateLabel.setLocation(0,0);
+        dateLabel.setLocation(10,0);
         dateLabel.setSize(150,30);
         totalGUI.add(dateLabel);
         
@@ -48,12 +61,26 @@ public class MainFrame implements ActionListener{
         writeButton.addActionListener(this);
         totalGUI.add(writeButton);
         
+        JButton exportXmlButton = new JButton("Export Data To XML File");
+        exportXmlButton.setLocation(15,150);
+        exportXmlButton.setSize(200,40);
+        exportXmlButton.setName("outxml");
+        exportXmlButton.addActionListener(this);
+        totalGUI.add(exportXmlButton);
+        
+        JButton importXmlButton = new JButton("Import Data From XML File");
+        importXmlButton.setLocation(15,200);
+        importXmlButton.setSize(200,40);
+        importXmlButton.setName("inxml");
+        importXmlButton.addActionListener(this);
+        totalGUI.add(importXmlButton);
+        
         return totalGUI;
     }
     public void makeGUI(){
         JFrame frame = new JFrame();
         frame.setResizable(false);
-        frame.setSize(250, 200);
+        frame.setSize(250, 300);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(this.createContentPane());
         frame.setTitle("MainFrame");

@@ -1,9 +1,4 @@
-/*
- * Last edit 14-2-2014
- * Revision 1
- */
-
-package Dairy_Revision2;
+package Diary;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
