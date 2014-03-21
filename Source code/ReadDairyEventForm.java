@@ -1,18 +1,8 @@
-/*
- * Last edit 14-2-2014
- * Revision 1
- */
-
-package Dairy_Revision2;
+package Diary;
 
 import java.sql.*;
-import Dairy_Revision2.ConnectDB;
-import java.awt.Color;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.*;
+import java.util.logging.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -53,7 +43,7 @@ lapsapSet.close();
       public static void getdata() throws SQLException
 {
    Connection connection = ConnectDB.connect();
-    String query = "SELECT * FROM dairy WHERE ID BETWEEN "+(dataView-10)+" AND "+dataView+" ORDER BY ID DESC";
+    String query = "SELECT * FROM diary WHERE ID BETWEEN "+(dataView-10)+" AND "+dataView+" ORDER BY ID DESC";
     Statement statement = connection.createStatement();
     ResultSet resultSet = statement.executeQuery(query); //run your query
     for(int a=0;a<10;a++){
@@ -75,7 +65,7 @@ lapsapSet.close();
 
 }
      public JPanel createReadPane() throws SQLException{
-         getLapsapData("SELECT * FROM DAIRY WHERE ID ="+idView+"");
+         getLapsapData("SELECT * FROM DIARY WHERE ID ="+idView+"");
          
             JPanel totalGUI = new JPanel();
          totalGUI.setLayout(null);
@@ -251,7 +241,7 @@ public void valueChanged(ListSelectionEvent e) { //listView highlist funtcion/lo
     }
     public void run() {
                 try{
-                    getLapsapData("SELECT * FROM dairy ORDER BY id DESC"); // get last id       
+                    getLapsapData("SELECT * FROM diary ORDER BY id DESC"); // get last id       
                       dataView=maxData;
     getdata();
     }catch(Exception abc){
@@ -317,7 +307,7 @@ public void nextBackButton(){ // to see next or last 10 data from db (logic/func
                 break;
                 case "Back2":    
                                 try {
-                                        getLapsapData("SELECT * FROM dairy ORDER BY id DESC");
+                                        getLapsapData("SELECT * FROM diary ORDER BY id DESC");
                                         nextBackButton();
                                     }
                                 catch (Exception ex) {}

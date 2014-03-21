@@ -18,7 +18,7 @@ public class MainFrame implements ActionListener{
                     addform.makeGUI();
                     break;
                 case "read":
-                         ReadDairyForm readform = new ReadDairyForm();
+                         ReadDairyEventForm readform = new ReadDairyEventForm();
                         readform.run();
                     break;
                 case "inxml":

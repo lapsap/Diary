@@ -86,7 +86,7 @@ public JPanel createContentPane ()  // create content ( forms)
     
     void makeGUI (){
           
-    ReadDairyForm demo = new ReadDairyForm();         
+    ReadDairyEventForm demo = new ReadDairyEventForm();         
        JFrame frame = new JFrame();
        frame.setResizable(false);
       frame.setLocation(40,20);
